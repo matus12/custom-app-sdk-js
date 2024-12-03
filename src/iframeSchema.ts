@@ -1,7 +1,7 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 enum ErrorCode {
-  UnknownMessage = 'unknown-message',
+  UnknownMessage = "unknown-message",
 }
 
 export const ErrorMessage = z
@@ -15,16 +15,16 @@ export const ErrorMessage = z
 
 const ClientInitV1Request = z
   .object({
-    type: z.literal('init-request'),
+    type: z.literal("init-request"),
     requestId: z.string().uuid(),
-    version: z.literal('1.0.0'),
+    version: z.literal("1.0.0"),
     payload: z.null(),
   })
   .readonly();
 
 const ClientInitV1Response = z
   .object({
-    type: z.literal('init-response'),
+    type: z.literal("init-response"),
     payload: z
       .object({
         context: z
@@ -48,14 +48,14 @@ const ClientInitV1Response = z
       })
       .readonly(),
     requestId: z.string().uuid(),
-    version: z.literal('1.0.0'),
+    version: z.literal("1.0.0"),
   })
   .or(ErrorMessage)
   .readonly();
 
 export type Schema = {
   client: {
-    'init@1.0.0': {
+    "init@1.0.0": {
       request: z.infer<typeof ClientInitV1Request>;
       response: z.infer<typeof ClientInitV1Response>;
     };

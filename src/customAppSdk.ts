@@ -1,9 +1,9 @@
-import { sendMessage, startListening } from './iframeMessenger';
-import { ErrorMessage } from './iframeSchema';
-import { matchesSchema } from './matchesSchema';
+import { sendMessage, startListening } from "./iframeMessenger";
+import { ErrorMessage } from "./iframeSchema";
+import { matchesSchema } from "./matchesSchema";
 
 export enum ErrorCode {
-  UnknownMessage = 'unknown-message',
+  UnknownMessage = "unknown-message",
 }
 
 export type InitResponse =
@@ -31,10 +31,10 @@ export const initCustomApp = (): Promise<InitResponse> => {
 
   return new Promise((resolve, reject) => {
     try {
-      sendMessage<'init@1.0.0'>(
+      sendMessage<"init@1.0.0">(
         {
-          type: 'init-request',
-          version: '1.0.0',
+          type: "init-request",
+          version: "1.0.0",
           payload: null,
         },
         (response) => {
