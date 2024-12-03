@@ -23,9 +23,9 @@ The Kontent.ai Custom App SDK enhances the integration of your custom app with t
 ## Usage
 
 ```javascript
-import { initCustomApp, InitResponse } from "@kontent-ai/custom-app-sdk-js";
+import { getCustomAppContext, CustomAppContext } from "@kontent-ai/custom-app-sdk-js";
 
-const response: InitResponse = await initCustomApp();
+const response: CustomAppContext = await getCustomAppContext();
 
 if (response.isError) {
   console.error({ errorCode: response.code, description: response.description});
@@ -34,19 +34,19 @@ if (response.isError) {
 }
 ```
 
-### initCustomApp function
+### getCustomAppContext function
 
-Use the `initCustomApp` function to initialize the custom app. The function takes no arguments and returns a promise with a value of an object of type `InitResponse`.
+Use the `getCustomAppContext` function to retrieve context of the custom app. The function takes no arguments and returns a promise with a value of an object of type `CustomAppContext`.
 
-### InitResponse
+### CustomAppContext
 
-| Property      | Type                   | Description                                                              |
-|---------------|------------------------|--------------------------------------------------------------------------|
-| `isError`     | boolean                | Determines if there was an error during initialization of the custom app |
-| `code`        | ErrorCode enum \| null | The code of the error message                                            |
-| `description` | string \| null         | The description of the error message                                     |
-| `context`     | object \| null         | Contains data provided by the Kontent.ai application                     |
-| `config`      | object \| null         | Contains JSON object specified in the custom app configuration           |
+| Property      | Type                   | Description                                                                  |
+|---------------|------------------------|------------------------------------------------------------------------------|
+| `isError`     | boolean                | Determines if there was an error while getting the context of the custom app |
+| `code`        | ErrorCode enum \| null | The code of the error message                                                |
+| `description` | string \| null         | The description of the error message                                         |
+| `context`     | object \| null         | Contains data provided by the Kontent.ai application                         |
+| `config`      | object \| null         | Contains JSON object specified in the custom app configuration               |
 
 ### Config object
 The `config` object is a JSON object that can be defined within the Custom App configuration under Environment settings in the Kontent.ai app.

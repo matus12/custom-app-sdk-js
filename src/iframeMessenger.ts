@@ -1,6 +1,6 @@
 import { createUuid } from "./createUuid";
 import type { Schema } from "./iframeSchema";
-import type { AllIncomingMessages } from "./utilityTypes";
+import type { AllClientResponses } from "./utilityTypes";
 
 let callbacks: Readonly<Record<string, (data: unknown) => void>> = {};
 
@@ -25,7 +25,7 @@ export const sendMessage = <TMessageType extends keyof Schema["client"]>(
   window.parent.postMessage({ ...message, requestId }, "*");
 };
 
-const processMessage = (event: MessageEvent<AllIncomingMessages>): void => {
+const processMessage = (event: MessageEvent<AllClientResponses>): void => {
   const message = event.data;
   const callback = callbacks[message.requestId];
   callbacks = Object.fromEntries(

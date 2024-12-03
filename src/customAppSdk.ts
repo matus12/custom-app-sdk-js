@@ -6,7 +6,7 @@ export enum ErrorCode {
   UnknownMessage = "unknown-message",
 }
 
-export type InitResponse =
+export type CustomAppContext =
   | {
       readonly isError: false;
       readonly context: {
@@ -26,14 +26,14 @@ export type InitResponse =
       readonly description: string;
     };
 
-export const initCustomApp = (): Promise<InitResponse> => {
+export const getCustomAppContext = (): Promise<CustomAppContext> => {
   const stopListening = startListening();
 
   return new Promise((resolve, reject) => {
     try {
-      sendMessage<"init@1.0.0">(
+      sendMessage<"get-context@1.0.0">(
         {
-          type: "init-request",
+          type: "get-context-request",
           version: "1.0.0",
           payload: null,
         },
@@ -46,8 +46,9 @@ export const initCustomApp = (): Promise<InitResponse> => {
         },
       );
     } catch (error) {
-      stopListening();
       reject(error);
+    } finally {
+      stopListening();
     }
   });
 };

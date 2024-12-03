@@ -1,2 +1,2 @@
-export { initCustomApp } from "./customAppSdk";
-export { InitResponse } from "./customAppSdk";
+export { getCustomAppContext } from "./customAppSdk";
+export { CustomAppContext } from "./customAppSdk";

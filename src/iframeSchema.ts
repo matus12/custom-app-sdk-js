@@ -13,18 +13,18 @@ export const ErrorMessage = z
   })
   .readonly();
 
-const ClientInitV1Request = z
+const ClientGetContextV1Request = z
   .object({
-    type: z.literal("init-request"),
+    type: z.literal("get-context-request"),
     requestId: z.string().uuid(),
     version: z.literal("1.0.0"),
     payload: z.null(),
   })
   .readonly();
 
-const ClientInitV1Response = z
+const ClientGetContextV1Response = z
   .object({
-    type: z.literal("init-response"),
+    type: z.literal("get-context-response"),
     payload: z
       .object({
         context: z
@@ -37,7 +37,7 @@ const ClientInitV1Response = z
                 z
                   .object({
                     id: z.string().uuid(),
-                    codename: z.string(),
+                    codename: z.string().or(z.null()),
                   })
                   .readonly(),
               )
@@ -55,9 +55,9 @@ const ClientInitV1Response = z
 
 export type Schema = {
   client: {
-    "init@1.0.0": {
-      request: z.infer<typeof ClientInitV1Request>;
-      response: z.infer<typeof ClientInitV1Response>;
+    "get-context@1.0.0": {
+      request: z.infer<typeof ClientGetContextV1Request>;
+      response: z.infer<typeof ClientGetContextV1Response>;
     };
   };
 };
