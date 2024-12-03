@@ -8,17 +8,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Publish
-        run: npm publish --access public
+
+      - run: npm ci
+      - run: npm run build
+
+      - run: npm publish --access=public
+        if: ${{!github.event.release.prerelease}}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
+      - run: npm publish --tag prerelease
+        if: ${{github.event.release.prerelease}}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
